@@ -1,0 +1,70 @@
+------------------------
+Homepage
+------------------------
+Homepage or index.html should have a flex box container that will have:
+1. Game Logo
+2. Screenshot or gif of Game Screen/Game Play
+3. [How to Play Button] [Start Game Button]
+  3a. [How to Play Button] is a button that will open up a hidden modal that will have instructions and or screenshot references to the different parts of play. 
+  3b. [Start Game Button] will include the link to duel.html.
+4. Footer can contain credits or maybe the purpose of the project.
+------------------------
+The Duel
+------------------------
+The Duel or duel.html should have:
+1. A container with 3 columns. 
+  1a. The first column will have a "Lives" Container that will contain:
+    - A "Lives Header"
+    - A divider
+    - An empty container that JS will use to input a dynamic number of lives when the game is initialized.
+  1b. The Second Column, will contain the following:
+    - An empty container that will hold the reference pattern for the player that will be used by JS later when the random array values have been generated. 
+    - Another container that will hold the image/icon/sprite that will represent the opponent.
+    - A container that will become VISIBLE after the reference pattern is HIDDEN. This container will be targeted later by JS when the player uses the button controls to fill in the array of divs with whatever colors they choose.
+    1c. This column will hold two containers that are space betweened, one container will hold the ever changing Round # value. And the second container will have a "Barons Bested" Header, a divider, and an empty container, that will fill up with divs (with cowboy) icons whenever the player moves to the next round.
+2. A container with the player button controls, 2 large divs that will either hold svg's or just be styled to look like buttons.
+------------------------
+The Logic
+------------------------
+init():
+1. I'll need a generateReference() function to set up and show the pattern that the player will have to match.
+2. I'll need to set the round # to 1.
+3. I'll need to set the player's life to 3 (hearts).
+4. I'll need to set the Baron's Bested Count to 0 (cowboys).
+5. I'll need to set the Winner to Null.
+6. I'll need to start a 4 second setTimeout that hides the reference pattern and shows player container after the time has elapsed.
+
+
+generateReference():
+1. I'll need a function that will generate a random interger from 1 - 10 (math.random & math.floor) 
+2. I need to take that interger and decide if it is even or odd (% 2)
+3. Then I need to take that return value (0 or 1) and push it into the empty referenceArray.
+  3a. I will need to do this a number of times = # of rounds + 4.
+  3b. Eventually I'll need to create and access a number of divs = to # of rounds + 4, and do the following:
+  3c. Add an Orange Circle at the index of and for every 0 in the array.
+  3d. Add a Blue Circle at the index of and for every 1 in the array.
+
+render():
+1. I'll need this to update the counts of the "Baron's Bested", "Lives", and Rounds and Rounds Message when this function is called on.
+
+getDuelResult():
+1. This will be used to declare a winner (either true or false)
+  1a. If the player won the duel > they lose no life > add a value to "Baron's Bested" container > add 1 to the Round # > Render to show the changes > show the next round button.
+  1b. Else, the player lost the duel (winner = false) > subtract 1 from the players life total > if the player has lives left announce they lost the duel and restart the latest round (need some sort of lastRoundRestart Function that renders the pattern from the last round).
+  1c. Else if, the player lost the duel > subtract 1 from the players life total, if the return is a negative interger > announce that the player has died and stop the game. 
+
+  newRoundInit():
+  1. I need this because I don't want to reset the players progress everytime they start a round, so this will be used to initialize a new round rather than using init() after every round.
+    1a. I need to set the winner to Null again.
+    1b. Run generateReference() again.
+    1c. Start a new setTimeout for 4 seconds and then hide the reference container/show player container.
+
+renderLives():
+1. This function will be used to render change or lack thereof to the players life icons based on the life count that they have when this function is called.
+
+renderRoundMessage():
+1. This will need to update the Round Header on the player screen based on the round #. 
+
+renderBarons():
+1. This will need to access and update the number of cowboy icons in the Baron's Bested Container based on the number of rounds - 1 (because when round = 1, the player hasn't bested any barons.)
+
