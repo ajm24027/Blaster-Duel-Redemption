@@ -1,0 +1,120 @@
+
+body {
+  /* Full Screen Background */
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  background: 
+  url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/homescreen background.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Press Start 2P', cursive;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  
+  height: 75vh;
+  width: 50vh;
+  font-size: 0.8rem;
+  text-align: center;
+  line-height: 1.5em;
+  color: gold;
+  text-shadow: 3px 3px 5px darkred;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+img.main {
+  max-width: 100%;
+  max-height: 100%;
+  border: 3px solid rgb(255, 123, 0);
+}
+
+/* Modal design borrowed from Tutorial -> https://www.youtube.com/watch?v=XH5OW46yO8I */
+.modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-container.show {
+pointer-events: auto;
+  opacity: 1;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #222222;
+  border-radius: 5px;
+  border: 3px solid rgb(255, 123, 0);
+  padding: 2%;
+  height: 70vh;
+  width: 60vw;
+  min-width: 1000px;
+  font-size: 0.8rem;
+  text-align: left;
+  line-height: 1.5rem;
+}
+
+  .inner-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #section-1, #section-2 {
+    width: 45%;
+  }
+
+  #section-2 > img {
+    width: fit-content;
+  }
+
+/* End of Modal */
+
+#start-btn, button {
+  cursor: pointer;
+  display: inline-flex;
+  font-family: 'Press Start 2P', cursive;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6rem;
+  background-color: red;
+  color: gold;
+  text-shadow: 3px 3px 5px darkred;
+  width: 140px;
+  height: 60px;
+  border: 3px solid rgb(255, 123, 0);
+}
+
+
