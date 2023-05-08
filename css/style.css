@@ -57,6 +57,7 @@ body.duel {
 
   width: 100vw;
   height: 80vh;
+  line-height: 1.5rem;
 }
 
 .duel-area {
@@ -68,21 +69,22 @@ body.duel {
   width: 60%;
 }
 
-#player-bar, #reference-bar {
-height: 100px;
-width: 400px;
+#player-bar, #computer-bar {
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+align-items: center;
+
+width: 41%;
 background-color: bisque;
 border-radius: 10px;
 border: 3px solid var(--border-color);
 margin: 2% auto;
+padding: 1%;
 }
 
-.dot {
-height: 60px;
-width: 60px;
-background-color: blue;
-border-radius: 50%;
-display: inline-block;
+#player-bar > div, #computer-bar > div {
+  margin: auto 1%;
 }
 
   .monitor-left, .monitor-right {
