@@ -1,11 +1,7 @@
 /*----- constants -----*/
-const open = document.querySelector('#open')
-const modal_container = document.querySelector('#modal_container')
-const close = document.querySelector('#close')
-const startBtn = document.querySelector('#start-btn')
-const lifeCount = document.querySelector('.lives-container')
-const baronCount = document.querySelector('.barons-container')
-const AMMO_LOOKUP = {
+const lifeBucket = document.querySelector('.lives-bucket')
+const baronBucket = document.querySelector('.baron-bucket')
+const IMG_LOOKUP = {
   e: {
     img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/ammo_oj.png'
   },
@@ -16,28 +12,63 @@ const AMMO_LOOKUP = {
 
 /*----- app's state (variables) -----*/
 let round
-let baronBested
+let baronsBested
 let winner
 let lives
+
 /*----- cached element references -----*/
 const roundEl = document.querySelector('#round')
-// const baronEl = document.querySelector
 
 /*----- functions -----*/
 const init = () => {
   round = 1
-  baronBested = 0
+  baronsBested = 0
   lives = 3
   winner = null
   render()
 }
 
-const handlePress = () => {
+const handlePressOj = () => {
   const ammoOj = document.createElement('div')
   ammoOj.setAttribute('id', 'ammoOj')
-  ammoOj.innerHTML = `<img src="${AMMO_LOOKUP.e.img}">`
+  ammoOj.innerHTML = `<img src="${IMG_LOOKUP.e.img}">`
   document.querySelector('#player-bar').appendChild(ammoOj)
-  console.log('button')
+  barrelCheck()
+}
+
+const handlePressBlue = () => {
+  const ammoBlue = document.createElement('div')
+  ammoBlue.setAttribute('id', 'ammoBlue')
+  ammoBlue.innerHTML = `<img src="${IMG_LOOKUP.o.img}">`
+  document.querySelector('#player-bar').appendChild(ammoBlue)
+  barrelCheck()
+}
+
+const barrelCheck = () => {
+  const computerChoice = document.querySelector('#computer-bar')
+  const refArr = Array.from(computerChoice.querySelectorAll('*'))
+  const playerChoice = document.querySelector('#player-bar')
+  const playerArr = Array.from(playerChoice.querySelectorAll('*'))
+  if (playerArr.length == refArr.length) {
+    getDuelResults()
+  }
+  return
+}
+
+const getDuelResults = () => {
+  const computerChoice = document.querySelector('#computer-bar')
+  const refArr = Array.from(computerChoice.querySelectorAll('*'))
+  const playerChoice = document.querySelector('#player-bar')
+  const playerArr = Array.from(playerChoice.querySelectorAll('*'))
+  if (playerArr == refArr) {
+    baronsBested += 1
+    winner = 'P'
+    renderMessage()
+  } else {
+    lives -= 1
+    winner = 'C'
+    renderMessage()
+  }
 }
 
 const render = () => {
@@ -51,12 +82,28 @@ const renderRound = () => {
   roundEl.innerText = `Round ${round}`
 }
 
-const renderBaron = () => {}
+const renderBaron = () => {
+  for (let i = 0; i < baronsBested; i++) {
+    const barons = document.createElement('img')
+    barons.src =
+      '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/barons-icon.png'
+    baronBucket.appendChild(barons)
+  }
+}
+
+const renderLives = () => {
+  for (let i = 0; i < lives; i++) {
+    const life = document.createElement('img')
+    life.src =
+      '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/lives-icon.png'
+    lifeBucket.appendChild(life)
+  }
+}
 
 const renderRef = () => {
   let randomNums = []
   const getRndmNums = () => {
-    for (let i = 0; i < round + 4; i++) {
+    for (let i = 0; i < round + 2; i++) {
       let randomNum = Math.floor(Math.random() * 10) + 1
       randomNums.push(randomNum)
     }
@@ -66,16 +113,14 @@ const renderRef = () => {
 
   randomNums.forEach((randomNum) => {
     if (randomNum % 2 === 0) {
-      // IF A NUMBER IS TRUE IN ARRAY -> GENERATE DIV WITH ID ORANGE AND IMG OF OJ BUTTON
       const ammoOj = document.createElement('div')
       ammoOj.setAttribute('id', 'ammoOj')
-      ammoOj.innerHTML = `<img src="${AMMO_LOOKUP.e.img}">`
+      ammoOj.innerHTML = `<img src="${IMG_LOOKUP.e.img}">`
       document.querySelector('#computer-bar').appendChild(ammoOj)
     } else {
-      // IF NUMBER IS ODD IN ARRAY -> GENERATE DIV WITH ID BLUE AND IMG OF BLUE BUTTON
       const ammoBlue = document.createElement('div')
       ammoBlue.setAttribute('id', 'ammoBlue')
-      ammoBlue.innerHTML = `<img src="${AMMO_LOOKUP.o.img}">`
+      ammoBlue.innerHTML = `<img src="${IMG_LOOKUP.o.img}">`
       document.querySelector('#computer-bar').appendChild(ammoBlue)
     }
   })
@@ -85,17 +130,5 @@ const renderRef = () => {
 
 /*----- event listeners -----*/
 
-open.addEventListener('click', () => {
-  modal_container.classList.add('show')
-})
-
-close.addEventListener('click', () => {
-  modal_container.classList.remove('show')
-})
-
-startBtn.addEventListener('click', () => {
-  window.location.href =
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/duel.html'
-})
-
-document.querySelector('#orange-btn').addEventListener('click', handlePress)
+document.querySelector('#orange-btn').addEventListener('click', handlePressOj)
+document.querySelector('#blue-btn').addEventListener('click', handlePressBlue)
