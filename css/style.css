@@ -1,4 +1,3 @@
-/* Global */
 :root {
 --background-color: #222222;
 --border-color: rgb(255, 123, 0);
@@ -20,7 +19,7 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
-/* Duel Styles */
+/* Duel Page Styles */
 
 body.duel {
   display: flex;
@@ -73,6 +72,10 @@ padding: 1%;
 
 #player-bar > div, #computer-bar > div {
   margin: auto 1%;
+}
+
+#player-bar {
+  visibility: hidden;
 }
 
   .monitor-left, .monitor-right {
@@ -153,6 +156,34 @@ hr {
   background-image: url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/btn-blue-active.png');
 }
 
+.game-splash {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+background-color: rgba(0, 0, 0, 0.7);
+padding: 20%;
+line-height: 3rem;
+position: fixed;
+height: 100vh;
+width: 100vw;
+visibility: hidden;
+}
+
+#splash-container {
+  display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-evenly;
+text-align: center;
+height: 60%;
+width: 60%;
+}
+
+#splash-container > button {
+  display: none;
+}
 
 /* Index Styles */
 
