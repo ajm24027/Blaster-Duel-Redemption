@@ -56,6 +56,14 @@ body.duel {
   width: 60%;
 }
 
+#sprite-container > img {
+  position: absolute;
+  z-index: 0;
+  top: 38%;
+  left: 38%;
+  height: 50%;
+}
+
 #player-bar, #computer-bar {
 display: flex;
 flex-wrap: wrap;
@@ -68,6 +76,7 @@ border-radius: 10px;
 border: 3px solid var(--border-color);
 margin: 2% auto;
 padding: 1%;
+z-index: 1;
 }
 
 #player-bar > div, #computer-bar > div {
@@ -120,13 +129,13 @@ padding: 1%;
   border-top: solid var(--border-color);
   width: 100vw;
   height: 20vh;
+  z-index: 2;
 }
 
 hr {
   border: 2px solid var(--text-color);
   width: 100%;
 }
-
 
 #orange-btn {
   background-image: url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/btn-orange-default.png');
@@ -169,6 +178,7 @@ position: fixed;
 height: 100vh;
 width: 100vw;
 visibility: hidden;
+z-index: 3;
 }
 
 #splash-container {
@@ -264,7 +274,7 @@ pointer-events: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
   }
 
   #section-1, #section-2 {
@@ -272,7 +282,12 @@ pointer-events: auto;
   }
 
   #section-2 > img {
+    justify-content: center;
     width: fit-content;
+  }
+
+  li {
+margin: 1rem;
   }
 
 /* End of Modal */

@@ -5,7 +5,40 @@ const IMG_LOOKUP = {
   },
   o: {
     img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/ammo_blue.png'
+  },
+  restingSprite: {
+    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/sprite_01.png'
+  },
+  spriteWin: {
+    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/sprite_03.png'
+  },
+  spriteLose: {
+    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/sprite_02.png'
   }
+}
+
+const AUDIO_LIB = {
+  gameOver: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/4 - Western Adventure 8-bit Retro Game Style NES - lose fanfare.wav'
+  ),
+  computerWin: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_player_attacked_voice.wav'
+  ),
+  playerWin: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_enemy_headshot.wav'
+  ),
+  roundMusic: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/3 - Western Adventure 8-bit Retro Game Style NES - gameplay2.wav'
+  ),
+  buttonClick: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_ui_click.wav'
+  ),
+  fanFare: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_train_honk3.wav'
+  ),
+  yelp: new Audio(
+    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_enemy_attacked_onlyvoice.wav'
+  )
 }
 
 /*----- app's state (variables) -----*/
@@ -20,10 +53,12 @@ const baronBucket = document.querySelector('.baron-bucket')
 const roundEl = document.querySelector('#round')
 const restartBtn = document.querySelector('#restart')
 const nextRndBtn = document.querySelector('#next-round')
+const startBtn = document.querySelector('#start')
 const messageEl = document.querySelector('#splash-message')
 const splashScreen = document.querySelector('.game-splash')
 const refBar = document.querySelector('#computer-bar')
 const playBar = document.querySelector('#player-bar')
+const sprite = document.querySelector('#sprite-container')
 let refArr = [...document.querySelectorAll('#computer-bar > div')]
 let playerArr = [...document.querySelectorAll('#player-bar > div')]
 
@@ -35,11 +70,36 @@ const init = () => {
   winner = null
   playBar.innerHTML = ''
   playBar.style.visibility = 'hidden'
+  AUDIO_LIB.roundMusic.play()
+  renderSprite()
   splashReset()
   render()
 }
 
+const renderSprite = () => {
+  if (winner === null) {
+    sprite.innerHTML = ''
+    const spriteOpponent = document.createElement('img')
+    spriteOpponent.src = `${IMG_LOOKUP.restingSprite.img}`
+    sprite.appendChild(spriteOpponent)
+  }
+  if (winner === 'P') {
+    sprite.innerHTML = ''
+    const spriteOpponent = document.createElement('img')
+    spriteOpponent.src = `${IMG_LOOKUP.spriteLose.img}`
+    sprite.appendChild(spriteOpponent)
+  }
+  if (winner === 'C') {
+    sprite.innerHTML = ''
+    const spriteOpponent = document.createElement('img')
+    spriteOpponent.src = `${IMG_LOOKUP.spriteWin.img}`
+    sprite.appendChild(spriteOpponent)
+  }
+}
+
 const getDuelResults = () => {
+  AUDIO_LIB.roundMusic.pause()
+  AUDIO_LIB.roundMusic.currentTime = 0
   if (playerArr.length === refArr.length) {
     playerArr = [...document.querySelectorAll('#player-bar > div')].map(
       (item) => {
@@ -54,14 +114,18 @@ const getDuelResults = () => {
     if (JSON.stringify(playerArr) === JSON.stringify(refArr)) {
       baronsBested += 1
       winner = 'P'
+      sprite.innerHTML = '<img src="${IMG_LOOKUP.spriteLose}"></img>'
     } else {
       lives -= 1
       winner = 'C'
+      sprite.innerHTML = '<img src="${IMG_LOOKUP.spriteWin}"></img>'
     }
     renderSplash()
   }
-  if (playerArr.length !== refArr.length || playerArr.length === 0) lives -= 1
-  winner = 'C'
+  if (playerArr.length !== refArr.length || playerArr.length === 0) {
+    lives -= 1
+    winner = 'C'
+  } else return
   renderSplash()
 }
 
@@ -90,6 +154,7 @@ const render = () => {
   renderBaron()
   renderLives()
   renderRef()
+  renderSprite()
   refArr = [...document.querySelectorAll('#computer-bar > div')]
   playerArr = [...document.querySelectorAll('#player-bar > div')]
 }
@@ -119,28 +184,44 @@ const renderLives = () => {
 }
 
 const renderSplash = () => {
+  if (winner === null) {
+    splashScreen.style.visibility = 'visible'
+    startBtn.style.display = 'inline'
+    messageEl.innerText =
+      "Become the fastest gun in Wild Space by dueling evil Space Barons who want to take your family's land."
+  }
   if (winner === 'P') {
+    AUDIO_LIB.computerWin.play()
+    AUDIO_LIB.fanFare.play()
     messageEl.innerText =
       'You win this round! Another victory for the fastest blaster in the galaxy.'
     splashScreen.style.visibility = 'visible'
     nextRndBtn.style.display = 'inline'
     restartBtn.style.display = 'none'
+    startBtn.style.display = 'none'
+    renderSprite()
   }
   if (winner === 'C') {
+    AUDIO_LIB.playerWin.play()
+    AUDIO_LIB.yelp.play()
     messageEl.innerText =
       "You lose this round. Don't hang you're hat up just yet!"
     splashScreen.style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
     splashScreen.style.visibility = 'visible'
     nextRndBtn.style.display = 'inline'
     restartBtn.style.display = 'none'
+    startBtn.style.display = 'none'
+    renderSprite()
   }
   if (lives <= 0 && winner === 'C') {
+    AUDIO_LIB.gameOver.play()
     messageEl.innerText =
-      'Your trail ends here, but your legacy will live on in the stars!'
+      'Your trail ends here, but your legacy lives on in the stars!'
     splashScreen.style.backgroundColor = 'rgba(255, 0, 0, 0.4)'
     splashScreen.style.visibility = 'visible'
     restartBtn.style.display = 'inline'
     nextRndBtn.style.display = 'none'
+    renderSprite()
   }
 }
 
@@ -185,14 +266,22 @@ const renderRef = () => {
 }
 
 const nextRound = () => {
+  winner = null
   round += 1
   render()
   splashReset()
   playBar.innerHTML = ''
   playBar.style.visibility = 'hidden'
+  AUDIO_LIB.buttonClick.play()
+  AUDIO_LIB.roundMusic.play()
 }
 
-init()
+const gameLoad = () => {
+  winner = null
+  renderSplash()
+}
+
+gameLoad()
 
 /*----- event listeners -----*/
 
@@ -200,3 +289,4 @@ document.querySelector('#orange-btn').addEventListener('click', handlePressOj)
 document.querySelector('#blue-btn').addEventListener('click', handlePressBlue)
 document.querySelector('#next-round').addEventListener('click', nextRound)
 document.querySelector('#restart').addEventListener('click', init)
+document.querySelector('#start').addEventListener('click', init)
