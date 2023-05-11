@@ -4,7 +4,7 @@
 
 ### By: Anthony Medina
 
-[Website](https://www.anthonyjmedina.com/) | [GitHub](https://github.com/ajm24027) | [LinkedIn](https://www.linkedin.com/in/anthonyjmedina/) | [Trello](https://trello.com/w/design_playground/home)
+[Website](https://www.anthonyjmedina.com/) | [GitHub](https://github.com/ajm24027) | [LinkedIn](https://www.linkedin.com/in/anthonyjmedina/) | [Trello](https://trello.com/w/design_playground/home) | [Game](playbdr.surge.sh)
 
 ---
 
