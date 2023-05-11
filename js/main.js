@@ -12,6 +12,5 @@ close.addEventListener('click', () => {
 })
 
 startBtn.addEventListener('click', () => {
-  window.location.href =
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/duel.html'
+  window.location.href = 'duel.html'
 })
