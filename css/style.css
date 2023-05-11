@@ -231,6 +231,7 @@ img.main {
 }
 
 /* Beginning of Modal */
+/* Modal Design borrowed from ->  Create a Modal (Popup) with HTML/CSS and JavaScript - https://youtu.be/XH5OW46yO8I */
 
 .modal-container {
   display: flex;

@@ -16,6 +16,8 @@ Fight your way to save your family's land in this pattern-based first person sho
 
 ### **_Technologies_**
 
+- Adobe Photoshop
+- Adobe Illustrator
 - JS
 - HTML
 - CSS
@@ -54,6 +56,8 @@ Good luck becoming the fastest blaster in Wild Space!
 
 ### **_Screenshots_**
 
+![Gameplay1](imgs/gameplay-image.png) ![Gameplay2](imgs/gamePlayScreenShots_controls.png) ![Gameplay2](imgs/gamePlayScreenShots_reference.png)
+
 ---
 
 ### **_Future Updates_**
@@ -67,6 +71,6 @@ Good luck becoming the fastest blaster in Wild Space!
 
 ### **_Credits_**
 
-Monkey Images: [Google](google.com)<br />
-Markdown Guide: [ia.net](https://ia.net/writer/support/general/markdown-guide)<br />
-Markdown Cheat Sheet: [Markdown Guide](https://www.markdownguide.org/cheat-sheet/)<br />
+Character Sprites created by: [@brugetsu.games](https://play.google.com/store/apps/details?id=com.Brugetsu.inc)<br />
+Splash Background by: [KVACM](https://kvacm.artstation.com/projects/BmA8Ak)<br />
+Font Awesome by Dave Gandy - http://fontawesome.io
