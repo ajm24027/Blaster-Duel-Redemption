@@ -1,44 +1,24 @@
 /*----- constants -----*/
 const IMG_LOOKUP = {
-  e: {
-    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/ammo_oj.png'
-  },
-  o: {
-    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/ammo_blue.png'
-  },
-  restingSprite: {
-    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/sprite_01.png'
-  },
-  spriteWin: {
-    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/sprite_03.png'
-  },
-  spriteLose: {
-    img: '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/sprite_02.png'
-  }
+  e: { img: 'imgs/ammo_oj.png' },
+  o: { img: 'imgs/ammo_blue.png' },
+  restingSprite: { img: 'imgs/sprite_01.png' },
+  spriteWin: { img: 'imgs/sprite_03.png' },
+  spriteLose: { img: 'imgs/sprite_02.png' }
 }
 
 const AUDIO_LIB = {
   gameOver: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/4 - Western Adventure 8-bit Retro Game Style NES - lose fanfare.wav'
+    'audio/4 - Western Adventure 8-bit Retro Game Style NES - lose fanfare.wav'
   ),
-  computerWin: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_player_attacked_voice.wav'
-  ),
-  playerWin: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_enemy_headshot.wav'
-  ),
+  computerWin: new Audio('audio/sfx_player_attacked_voice.wav'),
+  playerWin: new Audio('audio/sfx_enemy_headshot.wav'),
   roundMusic: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/3 - Western Adventure 8-bit Retro Game Style NES - gameplay2.wav'
+    'audio/3 - Western Adventure 8-bit Retro Game Style NES - gameplay2.wav'
   ),
-  buttonClick: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_ui_click.wav'
-  ),
-  fanFare: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_train_honk3.wav'
-  ),
-  yelp: new Audio(
-    '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/audio/sfx_enemy_attacked_onlyvoice.wav'
-  )
+  buttonClick: new Audio('audio/sfx_ui_click.wav'),
+  fanFare: new Audio('audio/sfx_train_honk3.wav'),
+  yelp: new Audio('audio/sfx_enemy_attacked_onlyvoice.wav')
 }
 
 /*----- app's state (variables) -----*/
@@ -167,8 +147,7 @@ const renderBaron = () => {
   baronBucket.innerHTML = ''
   for (let i = 0; i < baronsBested; i++) {
     const barons = document.createElement('img')
-    barons.src =
-      '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/barons-icon.png'
+    barons.src = 'imgs/barons-icon.png'
     baronBucket.appendChild(barons)
   }
 }
@@ -177,8 +156,7 @@ const renderLives = () => {
   lifeBucket.innerHTML = ''
   for (let i = 0; i < lives; i++) {
     const life = document.createElement('img')
-    life.src =
-      '/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/lives-icon.png'
+    life.src = 'imgs/lives-icon.png'
     lifeBucket.appendChild(life)
   }
 }

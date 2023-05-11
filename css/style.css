@@ -1,3 +1,5 @@
+/* Global Styles */
+
 :root {
 --background-color: #222222;
 --border-color: rgb(255, 123, 0);
@@ -32,10 +34,7 @@ body.duel {
 
 .monitor {
   background: 
-  url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/duel-background.png') no-repeat center bottom;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  url("../imgs/duel-background.png") no-repeat center bottom;
   background-size: cover;
 
   display: flex;
@@ -138,7 +137,7 @@ hr {
 }
 
 #orange-btn {
-  background-image: url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/btn-orange-default.png');
+  background-image: url('../imgs/btn-orange-default.png');
   background-position: bottom;
   background-size: contain;
   background-repeat: no-repeat;
@@ -148,11 +147,11 @@ hr {
 }
 
 #orange-btn:active {
-  background-image: url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/btn-orange-active.png');
+  background-image: url('../imgs/btn-orange-active.png');
 }
 
 #blue-btn {
-  background-image: url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/btn-blue-default.png');
+  background-image: url('../imgs/btn-blue-default.png');
   background-position: bottom;
   background-size: contain;
   background-repeat: no-repeat;
@@ -162,7 +161,7 @@ hr {
 }
 
 #blue-btn:active {
-  background-image: url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/btn-blue-active.png');
+  background-image: url('../imgs/btn-blue-active.png');
 }
 
 .game-splash {
@@ -199,10 +198,7 @@ width: 60%;
 
 body.home {
   background: 
-  url('/Users/anthonymedina/SEI-R-4-24/projects/Blaster-Duel-Redemption/imgs/homescreen background.png') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  url('../imgs/homescreen background.png') no-repeat center center fixed;
   background-size: cover;
 }
 
