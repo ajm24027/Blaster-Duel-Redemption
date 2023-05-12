@@ -1,4 +1,4 @@
-/*----- constants -----*/
+/*----- Image & Audio Library Constants -----*/
 const IMG_LOOKUP = {
   e: { img: 'imgs/ammo_oj.png' },
   o: { img: 'imgs/ammo_blue.png' },
@@ -21,13 +21,13 @@ const AUDIO_LIB = {
   yelp: new Audio('audio/sfx_enemy_attacked_onlyvoice.wav')
 }
 
-/*----- app's state (variables) -----*/
+/*----- App's State (Variables) -----*/
 let round
 let baronsBested
 let winner
 let lives
 
-/*----- cached element references -----*/
+/*----- Cached Element References -----*/
 const lifeBucket = document.querySelector('.lives-bucket')
 const baronBucket = document.querySelector('.baron-bucket')
 const roundEl = document.querySelector('#round')
@@ -43,6 +43,8 @@ let refArr = [...document.querySelectorAll('#computer-bar > div')]
 let playerArr = [...document.querySelectorAll('#player-bar > div')]
 
 /*----- functions -----*/
+
+// Sets game state variables, renders the initial elements from duel.html
 const init = () => {
   round = 1
   baronsBested = 0
@@ -56,19 +58,23 @@ const init = () => {
   render()
 }
 
+// Called by renderSplash (display round results). Access IMG_LOOKUP and displays the sprite respective to the Winner Variable.
 const renderSprite = () => {
+  // If no winner, render the initial sprite.
   if (winner === null) {
     sprite.innerHTML = ''
     const spriteOpponent = document.createElement('img')
     spriteOpponent.src = `${IMG_LOOKUP.restingSprite.img}`
     sprite.appendChild(spriteOpponent)
   }
+  // If winner is the player, render the spriteLose sprite.
   if (winner === 'P') {
     sprite.innerHTML = ''
     const spriteOpponent = document.createElement('img')
     spriteOpponent.src = `${IMG_LOOKUP.spriteLose.img}`
     sprite.appendChild(spriteOpponent)
   }
+  // If winner is the computer, render the spriteWin sprite.
   if (winner === 'C') {
     sprite.innerHTML = ''
     const spriteOpponent = document.createElement('img')
@@ -77,9 +83,11 @@ const renderSprite = () => {
   }
 }
 
+// Called by renderRef, decides if player wins or loses after comparing the contents of the computer bar and the player bar.
 const getDuelResults = () => {
   AUDIO_LIB.roundMusic.pause()
   AUDIO_LIB.roundMusic.currentTime = 0
+  // If player has put in enough ammunition, the game takes the divs of the computer & player bar and puts them into divs.
   if (playerArr.length === refArr.length) {
     playerArr = [...document.querySelectorAll('#player-bar > div')].map(
       (item) => {
@@ -91,6 +99,7 @@ const getDuelResults = () => {
         return item.innerHTML
       }
     )
+    // Takes the contents of the above arrays and compares them, serving up the proper round ending based on the results.
     if (JSON.stringify(playerArr) === JSON.stringify(refArr)) {
       baronsBested += 1
       winner = 'P'
@@ -102,6 +111,7 @@ const getDuelResults = () => {
     }
     renderSplash()
   }
+  // If player doesn't put in enough ammunition they lose because if the lengths don't match, player 100% doesn't have the correct pattern.
   if (playerArr.length !== refArr.length || playerArr.length === 0) {
     lives -= 1
     winner = 'C'
@@ -109,12 +119,18 @@ const getDuelResults = () => {
   renderSplash()
 }
 
+// The function that is called when the console controls are pushed.
 const handlePressOj = () => {
+  // Prevents the player from getting a head start or accidentally putting in more ammo than needed.
   if (playBar.style.visibility !== 'visible') return
   if (playerArr.length === refArr.length) return
+  // Creates a div stored in a varable called ammo*.
   const ammoOj = document.createElement('div')
+  // Sets the ID of the div to ammo* (for comparison purposes)
   ammoOj.setAttribute('id', 'ammoOj')
+  // Sets the innerHTML of the div to an image stored in the IMG_LOOKUP.
   ammoOj.innerHTML = `<img src="${IMG_LOOKUP.e.img}">`
+  // Adds the right image to the player bar.
   document.querySelector('#player-bar').appendChild(ammoOj)
   playerArr = [...document.querySelectorAll('#player-bar > div')]
 }
@@ -129,12 +145,14 @@ const handlePressBlue = () => {
   playerArr = [...document.querySelectorAll('#player-bar > div')]
 }
 
+// Stores all of the render functions that need to fire off at different times.
 const render = () => {
   renderRound()
   renderBaron()
   renderLives()
   renderRef()
   renderSprite()
+  // Here to provide the correct targets for renderRef.
   refArr = [...document.querySelectorAll('#computer-bar > div')]
   playerArr = [...document.querySelectorAll('#player-bar > div')]
 }
@@ -143,6 +161,7 @@ const renderRound = () => {
   roundEl.innerText = `Round ${round}`
 }
 
+// Appends the barons-icon.png to the div baronBucket for every baronBested.
 const renderBaron = () => {
   baronBucket.innerHTML = ''
   for (let i = 0; i < baronsBested; i++) {
@@ -161,13 +180,17 @@ const renderLives = () => {
   }
 }
 
+// Ends the game, and displays the combination of splash screen and opponent sprite on the duel page based on the state of the Winner.
+// Also used to bypass certain browser AutoPlay Policies. Bad user experience, but the players need to be immersed.
 const renderSplash = () => {
+  // Beginning splash
   if (winner === null) {
     splashScreen.style.visibility = 'visible'
     startBtn.style.display = 'inline'
     messageEl.innerText =
       "Become the fastest gun in Wild Space by dueling evil Space Barons who want to take your family's land."
   }
+  // Player Win Splash
   if (winner === 'P') {
     AUDIO_LIB.computerWin.play()
     AUDIO_LIB.fanFare.play()
@@ -179,6 +202,7 @@ const renderSplash = () => {
     startBtn.style.display = 'none'
     renderSprite()
   }
+  // Computer Win Splash
   if (winner === 'C') {
     AUDIO_LIB.playerWin.play()
     AUDIO_LIB.yelp.play()
@@ -191,6 +215,7 @@ const renderSplash = () => {
     startBtn.style.display = 'none'
     renderSprite()
   }
+  // Game Over Splash
   if (lives <= 0 && winner === 'C') {
     AUDIO_LIB.gameOver.play()
     messageEl.innerText =
@@ -203,11 +228,13 @@ const renderSplash = () => {
   }
 }
 
+// Needed a way to reset the splash screen after every round (if player loses, I don't want the splash screen to still have lose styling if they win following round)
 const splashReset = () => {
   splashScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'
   splashScreen.style.visibility = 'hidden'
 }
 
+// The star of the show. Generates a random number between 1 - 10 and pushes the interger to an Array.
 const renderRef = () => {
   document.querySelector('#computer-bar').innerHTML = ''
   let randomNums = []
@@ -220,6 +247,7 @@ const renderRef = () => {
   }
   getRndmNums()
 
+  // For each number in the array, decides if the number is even/odd, and like handlePress, assigns an img - Orange(even)/Blue(odd) - to a div and puts that div/img in the computer bar.
   randomNums.forEach((randomNum) => {
     if (randomNum % 2 === 0) {
       const ammoOj = document.createElement('div')
@@ -233,6 +261,7 @@ const renderRef = () => {
       document.querySelector('#computer-bar').appendChild(ammoBlue)
     }
   })
+  // Kicks off and mediates the round. First 4 seconds shows the computer bar, second 4 seconds hids computer and shows player bar. After both 4 second intervals elapse show the player both bars and decide the winner.
   setTimeout(() => {
     refBar.style.visibility = 'hidden'
     playBar.style.visibility = 'visible'
@@ -243,6 +272,7 @@ const renderRef = () => {
   }, 4000)
 }
 
+// Updates game states vs resetting them (init) and resets the "board" for the next round.
 const nextRound = () => {
   winner = null
   round += 1
@@ -254,6 +284,7 @@ const nextRound = () => {
   AUDIO_LIB.roundMusic.play()
 }
 
+// Used to give the player a moment beforet they start the game, and bypasses browser Autoplay policies.
 const gameLoad = () => {
   winner = null
   renderSplash()
